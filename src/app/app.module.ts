@@ -20,7 +20,7 @@ import { ShortenContentPipe } from './shorten-content.pipe';
     NavigationBarComponent,
     MovieComponent,
     MovieDetailComponent,
-    ShortenContentPipe,
+    ShortenContentPipe
   ],
   imports: [
     BrowserModule,

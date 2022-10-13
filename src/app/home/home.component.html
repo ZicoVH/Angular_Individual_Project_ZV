@@ -1,5 +1,5 @@
-<p>home works!</p>
-<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 mx-auto py-6">
-  <app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie>
+<h1>Welcome home</h1>
+<div class="row">
+<app-movie class="col-sm-12 col-md-12, col-lg-6, col-xl-4  d-flex align-items-stretch" *ngFor="let movie of movies" [movie]="movie"></app-movie>
 </div>
 

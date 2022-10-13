@@ -1,16 +1,5 @@
-<article *ngIf="movie" class="flex flex-col justify-between h-full bg-white border-gray-200 border-2 p-6 shadow">
-  <h1 class="text-4xl my-3">{{movie.title}}</h1>
-  <figure class="self-center my-3">
-    <img class="max-w-full h-auto" src="{{movie.image}}" alt="">
-  </figure>
-  <p *ngIf="!isDetail" class="text-justify my-3">
-    {{movie.content |shortenContent : 100}}
-  </p>
-  <p *ngIf="isDetail" class="text-justify my-3">
-    {{movie.content}}
-  </p>
-  <p class="py-2">
-    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" (click)="detail(movie.id)">Read more</button>
-</p>
-  <footer class="italic uppercase">{{movie.release_date}}</footer>
-</article>
+<p>{{movie.title}}</p>
+<!-- <img src="{{movie.poster_path"}}" alt=""> -->
+<img     src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{
+  movie.poster_path
+}}" alt="">
