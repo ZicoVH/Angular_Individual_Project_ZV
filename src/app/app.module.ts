@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { MovieComponent } from './movie/movie.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     HomeComponent,
     WatchlistComponent,
     NavigationBarComponent,
+    MovieComponent,
   ],
   imports: [
     BrowserModule,
