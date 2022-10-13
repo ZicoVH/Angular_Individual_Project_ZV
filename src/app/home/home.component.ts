@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,23 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  movies: Movie[] = []
+  // movies: any;
+  movies!: Movie[];
+  subscription! : Subscription;
+
+  movies$: Observable<any> = new Observable();
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
-    this.movies = this.movieService.getMovies();
+    this.getAllMovies();
+  }
+
+  getAllMovies() {
+    this.movieService.getMovies().subscribe((r:any) => {
+      this.movies = r.results;
+    });
+
   }
 
 }

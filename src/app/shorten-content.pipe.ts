@@ -6,10 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ShortenContentPipe implements PipeTransform {
 
   transform(value: string, numberOfCharacters?: number): string {
-    if(value.length < (numberOfCharacters ?? 100)) {
+    if(value.length < (numberOfCharacters ?? 250)) {
       return value;
     } else {
-      return value.slice(0, numberOfCharacters ?? 100)  + " ...";
+      return value.slice(0, numberOfCharacters ?? 250)  + " ...";
     }
   }
 }

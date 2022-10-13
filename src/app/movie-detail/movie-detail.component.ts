@@ -9,13 +9,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./movie-detail.component.css']
 })
 export class MovieDetailComponent implements OnInit {
-  movie: Movie = {
-    id: 0,
-    title: '',
-    image: '',
-    release_date: '',
-    content: ''
-  }
+  movie: any
+  // movie: Movie = {
+  //   id: 0,
+  //   title: '',
+  //   image: '',
+  //   release_date: '',
+  //   content: ''
+  // }
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
@@ -24,7 +25,7 @@ export class MovieDetailComponent implements OnInit {
     if (movieId != null) {
       let movieTemp = this.movieService.getMovieById(+movieId) ?? null;
       if(movieTemp != null) {
-        this.movie = movieTemp;
+        this.movieService.getMovieById(+movieId).subscribe(result => this.movie = result)
       }
     }
   }
