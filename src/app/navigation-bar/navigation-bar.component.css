@@ -1,4 +1,4 @@
-nav ul {
+/* nav ul {
   display: flex;
   list-style-type: none;
   padding: 0px;
@@ -26,4 +26,9 @@ nav a.active {
 nav a:hover {
   color: lightgrey;
   background-color: grey;
+} */
+
+nav a.active {
+  /* background-color: blue; */
+  color: white;
 }

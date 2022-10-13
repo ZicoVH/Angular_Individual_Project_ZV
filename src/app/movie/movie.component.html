@@ -1,0 +1,7 @@
+<article *ngIf="movie" class="flex flex-col justify-between h-full bg-white border-gray-200 border-2 p-6 shadow">
+  <h1 class="text-4xl my-3">{{movie.title}}</h1>
+  <figure class="self-center my-3">
+    <img class="max-w-full h-auto" src="{{movie.image}}" alt="">
+  </figure>
+  <footer class="italic uppercase">{{movie.release_date}}</footer>
+</article>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+  hamburgerOpen = false;
+
+  toggleHamburger(): void {
+    this.hamburgerOpen = !this.hamburgerOpen;
+  }
+
+  onHamburgerItemClick() {
+    if (this.hamburgerOpen) {
+      this.hamburgerOpen = false;
+    }
+  }
+
+  navigateTo(path: string) {
+    this.hamburgerOpen = false;
+    this.router.navigate([path]);
   }
 
 }
