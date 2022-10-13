@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { MovieComponent } from './movie/movie.component';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { ShortenContentPipe } from './shorten-content.pipe';
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import { MovieComponent } from './movie/movie.component';
     WatchlistComponent,
     NavigationBarComponent,
     MovieComponent,
+    MovieDetailComponent,
+    ShortenContentPipe,
   ],
   imports: [
     BrowserModule,

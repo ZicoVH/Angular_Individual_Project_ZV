@@ -3,5 +3,14 @@
   <figure class="self-center my-3">
     <img class="max-w-full h-auto" src="{{movie.image}}" alt="">
   </figure>
+  <p *ngIf="!isDetail" class="text-justify my-3">
+    {{movie.content |shortenContent : 100}}
+  </p>
+  <p *ngIf="isDetail" class="text-justify my-3">
+    {{movie.content}}
+  </p>
+  <p class="py-2">
+    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" (click)="detail(movie.id)">Read more</button>
+</p>
   <footer class="italic uppercase">{{movie.release_date}}</footer>
 </article>

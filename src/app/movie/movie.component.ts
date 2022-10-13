@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Movie } from '../movie';
 
 @Component({
@@ -12,11 +13,17 @@ export class MovieComponent implements OnInit {
     title: '',
     image: '',
     release_date: '',
+    content: ''
   }
+  @Input() isDetail: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  detail(id: number) {
+    this.router.navigate(["./movie",id])
   }
 
 }
