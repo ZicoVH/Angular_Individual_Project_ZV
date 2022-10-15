@@ -18,9 +18,17 @@ export class MovieComponent implements OnInit {
     subscription!: Subscription;
 
   @Input() movie!: Movie;
+  movieById: any;
   constructor(private router: Router, private movieService: MovieService) { }
 
   ngOnInit(): void {
+  }
+
+  getMovieById(id: number) {
+    this.movieService.getMovieById(id).subscribe((r:any) => {
+      console.log(r.title);
+      this.movieById = r.results;
+    })
   }
 
 
