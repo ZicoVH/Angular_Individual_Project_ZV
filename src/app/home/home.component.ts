@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   searchBox!: HTMLInputElement;
   typeAhead!: Observable<Movie[]>;
   searchMovies: any = [];
+  showSearchResults: boolean = true;
+  movieById: any;
 
   constructor(private movieService: MovieService) { }
 
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getAllMovies();
 
     this.searchBox = document.getElementById('searchMovie') as HTMLInputElement;
@@ -44,7 +47,13 @@ export class HomeComponent implements OnInit {
     this.subscription = this.typeAhead.subscribe((r:any) => {
         console.log(r)
         this.searchMovies = r.results;
+        this.showSearchResults= false;
     })
+  }
+
+  refreshSearchResults() {
+    this.showSearchResults = false
+    setTimeout(() => this.showSearchResults = true)
   }
 
 
@@ -53,6 +62,8 @@ export class HomeComponent implements OnInit {
       this.movies = r.results;
     });
   }
+
+
 
 
 }

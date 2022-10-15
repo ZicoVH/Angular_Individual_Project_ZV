@@ -25,7 +25,12 @@ export class MovieService {
 
   searchMovies(filter: string) : Observable<Movie[]> {
     console.log(filter)
-    return this.httpClient.get<Movie[]>(`https://api.themoviedb.org/3/search/movie?api_key=005e372cbd4dab113edccadcc0ae5dff&query=${filter}`)
+    if (filter == ' ') {
+      return this.getMovies();
+    }
+    else {
+      return this.httpClient.get<Movie[]>(`https://api.themoviedb.org/3/search/movie?api_key=005e372cbd4dab113edccadcc0ae5dff&query=${filter}`)
+    }
   }
 
 }

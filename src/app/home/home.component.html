@@ -1,5 +1,5 @@
 <app-movie class="col-sm-12 col-md-12, col-lg-6, col-xl-4  d-flex align-items-stretch " *ngFor="let movie of searchMovies" [movie]="movie"></app-movie>
-<div class="row flex flex-row" *ngIf="(searchMovies | json) != '{}' ">
+<div class="row flex flex-row" *ngIf="showSearchResults">
   <app-movie class="col-sm-12 col-md-12, col-lg-6, col-xl-4  d-flex align-items-stretch " *ngFor="let movie of movies" [movie]="movie"></app-movie>
 </div>
 
