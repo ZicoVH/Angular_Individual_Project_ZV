@@ -21,13 +21,13 @@ export class MovieDetailComponent implements OnInit {
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const movieId = this.route.snapshot.paramMap.get('id');
-    if (movieId != null) {
-      let movieTemp = this.movieService.getMovieById(+movieId) ?? null;
-      if(movieTemp != null) {
-        this.movieService.getMovieById(+movieId).subscribe(result => this.movie = result)
-      }
-    }
+    // const movieId = this.route.snapshot.paramMap.get('id');
+    // if (movieId != null) {
+    //   let movieTemp = this.movieService.getMovieById(+movieId) ?? null;
+    //   if(movieTemp != null) {
+    //     this.movieService.getMovieById(+movieId).subscribe(result => this.movie = result)
+    //   }
+    // }
   }
 
 }
