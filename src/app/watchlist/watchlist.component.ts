@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Movie } from '../movie';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WatchlistComponent implements OnInit {
 
+
   constructor() { }
 
+
   ngOnInit(): void {
+
+
+
   }
+
 
 }

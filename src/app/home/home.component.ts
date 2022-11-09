@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   searchMovies: any = [];
   showSearchResults: boolean = true;
   movieById: any;
+  querymovies!: any;
 
   constructor(private movieService: MovieService) { }
 
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.getAllMovies();
+    this.getWatchList();
 
     this.searchBox = document.getElementById('searchMovie') as HTMLInputElement;
 
@@ -62,6 +64,19 @@ export class HomeComponent implements OnInit {
       this.movies = r.results;
     });
   }
+
+  getWatchList() {
+    this.movieService.getWatchlist().subscribe((r:any)=> {
+      this.querymovies = r.results;
+      console.log(r);
+    })
+  }
+
+  // addToWatchList(id:number) {
+  //   this.movieService.addToWatchlist(id).subscribe((r:any) => {
+  //     console.log(r);
+  //   })
+  // }
 
 
 

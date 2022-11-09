@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable, Subscription, switchMap } from 'rxjs';
@@ -12,14 +13,16 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit {
-    countries: Movie[] = [];
+    movies: Movie[] = [];
     searchBox!: HTMLInputElement;
     typeAhead!: Observable<Movie[]>;
     subscription!: Subscription;
 
   @Input() movie!: Movie;
   movieById: any;
-  constructor(private router: Router, private movieService: MovieService) { }
+  constructor(private router: Router, private movieService: MovieService,private httpClient: HttpClient) { }
+
+  localhostURL ='http://localhost:8080/api';
 
   ngOnInit(): void {
   }
@@ -29,6 +32,14 @@ export class MovieComponent implements OnInit {
       console.log(r.title);
       this.movieById = r.results;
     })
+  }
+
+  addToWatchlist(id: number) {
+    console.log(id);
+    return this.httpClient.post<any[]>(this.localhostURL + "/movie",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
+      this.movies.push(this.movie);
+    });
+
   }
 
 

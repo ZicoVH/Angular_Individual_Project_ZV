@@ -1,14 +1,15 @@
 <div class="max-w-sm rounded overflow-hidden shadow-lg m-5 card ">
-  <div class="row ">
+  <div class="row bg-gray-500">
 
       <img class="img-thumbnail" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie.poster_path}}" alt="Sunset in the mountains" width="50%">
       <p class="middle font-bold text-xl mb-2 text">{{movie.title}}
       </p>
 
+      <div style="float: right">
+        <button (click)="addToWatchlist(movie.id)" class="inline-block bg-green-600 rounded-full float-right px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 " >+</button>
+      </div>
   </div>
-  <div style="float: right">
-    <button (click)="getMovieById(movie.id)" class="inline-block bg-gray-200 rounded-full float-right px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 " >+</button>
-  </div>
+
 
   <!-- <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2">{{movie.title}}</div>
