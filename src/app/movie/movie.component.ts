@@ -36,9 +36,15 @@ export class MovieComponent implements OnInit {
 
   addToWatchlist(id: number) {
     console.log(id);
-    return this.httpClient.post<any[]>(this.localhostURL + "/movie",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
+    return this.httpClient.post<any[]>(this.localhostURL + "/movies",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
       this.movies.push(this.movie);
     });
+  }
+
+  removeFromWatchlist(id: number) {
+    return this.httpClient.delete<any[]>(this.localhostURL + `/movies/${id}`).subscribe(data => {
+      console.log(data);
+    })
   }
 
 
