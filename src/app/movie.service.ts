@@ -35,7 +35,7 @@ export class MovieService {
     }
   }
 
-  getWatchlist() {
+  getWatchlist() : Observable<Movie[]>{
     return this.httpClient.get<any[]>(this.localhostURL +"/movies");
   }
 
