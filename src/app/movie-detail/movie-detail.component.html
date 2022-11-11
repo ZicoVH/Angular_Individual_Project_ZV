@@ -26,7 +26,6 @@
           <span class="text-gray-500"> {{ movie?.runtime | time }}</span>
           <p class="pt-5 pb-5">{{ movie?.overview }}</p>
         </div>
-        <!-- <div class="desc">{{ movie?.overview }}</div> -->
       </div>
 
       <button
@@ -58,8 +57,8 @@
       </div>
     </div>
     <img
-      class="lazyload image ml-10"
-      style="width: 70%"
+      class="image ml-10"
+      style="width: 70%; "
       src="https://image.tmdb.org/t/p/original/{{ movie?.backdrop_path }}"
     />
   </div>
