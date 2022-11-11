@@ -2,47 +2,56 @@ div {
   display: inline-block;
 }
 
-.card {
-  /* width: 500px; */
-  height: auto;
-}
-
-.card-img-top {
-  min-height: 0.1px;
-}
-
 img.img-thumbnail {
-  border: 1px solid #e4c9c9;
+  /* border: 1px solid #e4c9c9; */
   width: 100%;
   height: auto;
   transition: 0.5s ease;
   backface-visibility: hidden;
 }
 
-.middle {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: relative;
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-  z-index: 1;
-  pointer-events:none;
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  color: red;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
 
-.text {
-  background-color: gray;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
+
+.hoverTitle{
+  display:none;
+}
+.img-thumbnail:hover+.hoverTitle{
+  display:block;
+}
+.hoverTitle:hover {
+  display: block;
 }
 
-.img-thumbnail:hover {
+
+/* .img-thumbnail:hover {
   opacity: 0.3;
 }
 
 .img-thumbnail:hover+.middle {
   opacity: 1;
-}
+} */

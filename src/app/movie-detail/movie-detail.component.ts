@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-movie-detail',
@@ -9,6 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./movie-detail.component.css']
 })
 export class MovieDetailComponent implements OnInit {
+  movies: Movie[] = [];
   public id!: number;
   movie: any
 
@@ -21,7 +23,9 @@ export class MovieDetailComponent implements OnInit {
   // movies: any = [];
 
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute) { }
+  constructor(private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
+
+  localhostURL ='http://localhost:8080/api';
 
 
   ngOnInit(): void {
@@ -35,6 +39,19 @@ export class MovieDetailComponent implements OnInit {
   getSingleMoviesDetails(id: number){
     this.movieService.getMovieById(id).subscribe((r:any) => {
       this.movie = r;
+    })
+  }
+
+  addToWatchlist(id: number) {
+    console.log(id);
+    return this.httpClient.post<any[]>(this.localhostURL + "/movies",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
+      this.movies.push(this.movie);
+    });
+  }
+
+  removeFromWatchlist(id: number) {
+    return this.httpClient.delete<any[]>(this.localhostURL + `/movies/${id}`).subscribe(data => {
+      console.log(data);
     })
   }
 

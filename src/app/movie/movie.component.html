@@ -1,27 +1,16 @@
-<div class="max-w-sm rounded overflow-hidden shadow-lg m-5 card ">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+<div class="max-w-sm rounded overflow-hidden shadow-lg m-5 ">
   <div class="row bg-gray-500">
-
+    <div class="relative" >
+      <p class="inline absolute bg-gray-900 pr-3 pl-2 pb-1 text-white  translate-x-2 translate-y-2 rounded-2xl"><span class="material-icons translate-y-1">star</span>{{movie.vote_average}} / 10</p>
       <img class="img-thumbnail" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie.poster_path}}" alt="Sunset in the mountains" width="50%">
-      <p class="middle font-bold text-xl mb-2 text">{{movie.title | shortenContent : 30}}
-      </p>
+      <button type="button" (click)="detail(movie.id)"  class="hoverTitle absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Read more</button>
+    </div>
+    <div class="title flex flex-row" style="display:block;">
 
-      <div style="float: right">
-        <button (click)="addToWatchlist(movie.id)" class="inline-block bg-green-600 rounded-full float-right px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 " >+</button>
-        <button (click)="removeFromWatchlist(movie.id)" onclick="location.reload()" class="inline-block bg-red-600 rounded-full float-right px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 " >-</button>
-        <button type="button" (click)="detail(movie.id)" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Read more</button>
-        <!-- <button (click)="detail(movie.id)">Read more</button> -->
-      </div>
+      <p class=" inline ml-3  text-l text-black font-bold ">{{movie.title | shortenContent : 40}}</p>
+    </div>
   </div>
-
-
-  <!-- <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">{{movie.title}}</div>
-    <p class="text-gray-700 text-base">
-      {{movie.overview}}
-    </p>
-  </div>
-  <div class="px-6 pt-4 pb-2">
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{movie.release_date}}</span>
-
-  </div> -->
 </div>

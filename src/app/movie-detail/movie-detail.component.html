@@ -1,177 +1,136 @@
-<!-- <p>movie-detail works!</p> -->
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
 
-
- <!-- <div *ngFor="let movie of movies">
-  <p>{{movie.title}}</p>
- </div> -->
-
-<!-- <div *ngIf="movie" class="grid grid-cols-2">
-  <img class="img-thumbnail" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie.poster_path}}" alt="Sunset in the mountains" width="50%">
-  <div>{{movie.title}}
-    <p>{{movie.release_date}}</p>
- <p>{{movie.profile_path}}</p>
-  </div>
-
-
-</div> -->
-
-<div class="">
-  <div class="backdrop flex">
-    <div>
-      <div class="name">{{ movie?.title }}</div>
+<div class="text-white">
+  <div class="backdrop flex ful">
+    <div class="pl-5">
+      <div class="name pt-8">{{ movie?.title }}</div>
       <div class="meta">
-
-          <div class="info">
-              <span class="rate">
-                  <i class="material-icons">star</i><span>{{ movie?.vote_average }}</span> /10
-              </span>
-              <span> {{movie?.vote_count }} Reviews</span>
-              <span>{{movie?.release_date | date: 'yyyy' }}</span>
-              <span>{{movie?.runtime }}</span>
-          </div>
+        <div class="info space-x-3">
+          <span class="rat text-gray-500">
+            <i class="material-icons">star</i
+            ><span class="text-white">{{ movie?.vote_average }}</span> /10
+          </span>
+          <span class="text-gray-500">|</span>
+          <span>
+            {{ movie?.vote_count }}
+            <span class="text-gray-500">Reviews</span></span
+          >
+          <span class="text-gray-500">|</span>
+          <span class="text-gray-500">{{
+            movie?.release_date | date: "yyyy"
+          }}</span>
+          <span class="text-gray-500">|</span>
+          <span class="text-gray-500"> {{ movie?.runtime | time }}</span>
+          <p class="pt-5 pb-5">{{ movie?.overview }}</p>
+        </div>
+        <!-- <div class="desc">{{ movie?.overview }}</div> -->
       </div>
-      <div class="desc">{{ movie?.overview }}</div>
 
-  </div>
-    <img class="lazyload image" style="width:60%; margin-left: 40%;" src="https://image.tmdb.org/t/p/original/{{ movie?.backdrop_path }}">
-  </div>
-  <div class="pane">
-
+      <button
+        type="button"
+        (click)="addToWatchlist(movie.id)"
+        class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+      >
+        Add to Watchlist
+      </button>
+      <button
+        type="button"
+        (click)="removeFromWatchlist(movie.id)"
+        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+      >
+        Remove from Watchlist
+      </button>
+      <hr />
+      <!-- Genres -->
+      <div class="pt-2">
+        <div class="flex">
+          <p class="text-gray-500">Genre:  &nbsp;</p>
+          <p class="comma_ text-white" *ngFor="let genre of movie?.genres">
+            <span> {{genre.name}}&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <!-- <a routerLink="/genres/{{ genre.id }}/{{ genre.name }}">{{
+              genre?.name
+            }}</a> -->
+          </p>
+        </div>
+      </div>
+    </div>
+    <img
+      class="lazyload image ml-10"
+      style="width: 70%"
+      src="https://image.tmdb.org/t/p/original/{{ movie?.backdrop_path }}"
+    />
   </div>
 </div>
 
 <div class="container-fluid">
   <div class="row">
-      <div class="col-md-12">
-                  <div class="listing-space info__movies">
-                      <div class="left">
-                          <div class="poster">
+    <div class="col-md-12">
+      <div class="listing-space info__movies">
+        <div class="left">
+          <!-- <div class="poster">
                               <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ movie?.poster_path }}">
-                          </div>
-                      </div>
-                      <div class="right">
-                          <div class="overview">
-                              <h2 class="title">Storyline</h2>
-                              <div>{{movie?.overview}}</div>
-                          </div>
-                          <div class="stats">
-                              <ul class="nolist">
-                                  <li>
-                                      <div class="label">
-                                          Released
-                                      </div>
-                                      <div class="value">
-                                          {{ movie?.release_date }}
-                                      </div>
-                                  </li>
-                                  <li>
-                                      <div class="label">
-                                          Runtime
-                                      </div>
-                                      <div class="value">
-                                          {{ movie?.runtime }}
-                                      </div>
-                                  </li>
-                                  <li *ngIf="movie?.budget">
-                                      <div class="label">
-                                          Budget
-                                      </div>
-                                      <div class="value">
-                                          ${{ movie?.budget}}
-                                      </div>
-                                  </li>
-                                  <li *ngIf="movie?.revenue">
-                                      <div class="label">
-                                          Revenue
-                                      </div>
-                                      <div class="value">
-                                          ${{ movie?.revenue}}
-                                      </div>
-                                  </li>
-
-                                  <li *ngIf="movie?.genres.length">
-                                      <div class="label">
-                                          Genre
-                                      </div>
-                                      <div class="comma_" *ngFor="let genre of movie?.genres">
-                                          <a routerLink="/genres/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a>
-                                      </div>
-                                  </li>
-                                  <li *ngIf="movie?.status">
-                                      <div class="label">
-                                          Status
-                                      </div>
-                                      <div class="value">
-                                          {{movie?.status}}
-                                      </div>
-                                  </li>
-                                  <li *ngIf="movie?.spoken_languages?.length">
-                                      <div class="label">
-                                          Language
-                                      </div>
-                                      <div class="comma_" *ngFor="let language of movie?.spoken_languages">
-                                          <a>{{ language?.name }}</a>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="listing-space">
-                      <div class="listing__head">
-                          <h2 class="listing__title">Cast</h2>
-                      </div>
-                          <ng-template let-cast pTemplate="item">
-                              <div class="listing-item-style" [routerLink]="['/person/', cast.id]">
-                                  <div class="overlay">
-                                      <div class="hover">Details</div>
-                                  </div>
-                                  <img *ngIf="cast.profile_path"
-                                      src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{cast?.profile_path}}">
-                                  <img *ngIf="!cast?.profile_path" src="assets/images/default-movie.png">
-                                  <h6>{{ cast?.name }}</h6>
-                              </div>
-                          </ng-template>
-
-                  </div>
-
-
-
-                  <div class="listing-space videos__status">
-                      <div class="items">
-                      </div>
-                  </div>
-
-
-                  <div class="listing-space backdrop_">
-                      <div class="head">
-                          <h2 class="title">Backdrops</h2>
-                      </div>
-                      <div class="items">
-
-                      </div>
-                  </div>
-
-
-          <div class="listing-space mt-20 mb-5">
-              <div class="listing__head">
-                  <h2 class="listing__title">Recommended Movies</h2>
-              </div>
-                  <ng-template let-recomend pTemplate="item">
-                      <div class="listing-item-style" [routerLink]="['/movies/', recomend.id]">
-                          <div class="overlay">
-                              <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                          </div>
-                          <img *ngIf="recomend?.poster_path"
-                              src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{recomend?.poster_path}}">
-                          <img *ngIf="!recomend?.poster_path" src="assets/images/default-movie.png">
-                          <h6>{{ recomend?.title }}</h6>
-                          <p class="rate"><i class="material-icons">star</i><span>{{recomend?.vote_average}}</span>
-                              /10</p>
-                          <div class="year"><span>{{recomend?.release_date | date: 'yyyy'}}</span></div>
-                      </div>
-                  </ng-template>          </div>
+                          </div> -->
+        </div>
+        <div class="right">
+          <div class="stats">
+            <ul class="nolist">
+              <li *ngIf="movie?.status">
+                <div class="label">Status</div>
+                <div class="value">
+                  {{ movie?.status }}
+                </div>
+              </li>
+              <li *ngIf="movie?.spoken_languages?.length">
+                <div class="label">Language</div>
+                <div
+                  class="comma_"
+                  *ngFor="let language of movie?.spoken_languages"
+                >
+                  <a>{{ language?.name }}</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
+
+      <div class="listing-space">
+        <div class="listing__head">
+          <h2 class="listing__title">Cast</h2>
+        </div>
+        <ng-template let-cast pTemplate="item">
+          <div class="listing-item-style" [routerLink]="['/person/', cast.id]">
+            <div class="overlay">
+              <div class="hover">Details</div>
+            </div>
+            <img
+              *ngIf="cast.profile_path"
+              src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{
+                cast?.profile_path
+              }}"
+            />
+            <img
+              *ngIf="!cast?.profile_path"
+              src="assets/images/default-movie.png"
+            />
+            <h6>{{ cast?.name }}</h6>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="listing-space videos__status">
+        <div class="items"></div>
+      </div>
+
+      <div class="listing-space backdrop_">
+        <div class="head">
+          <h2 class="title">Backdrops</h2>
+        </div>
+        <div class="items"></div>
+      </div>
+    </div>
   </div>
 </div>

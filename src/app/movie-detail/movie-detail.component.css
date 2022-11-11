@@ -1,0 +1,12 @@
+.name {
+  margin: 0 0 1.4rem;
+  font-size: 2.8rem;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: .4px;
+  cursor: pointer;
+}
+
+.material-icons {
+  color:yellow;
+}
