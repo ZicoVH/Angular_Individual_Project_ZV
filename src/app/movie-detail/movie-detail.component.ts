@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,17 +13,11 @@ export class MovieDetailComponent implements OnInit {
   movies: Movie[] = [];
   public id!: number;
   movie: any
+  watchedornot: any;
+  comment: string = '';
+  inDatabase: boolean = false;
 
-
-
-
-
-
-
-  // movies: any = [];
-
-
-  constructor(private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
+  constructor(private router: Router,private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
 
   localhostURL ='http://localhost:8080/api';
 
@@ -34,6 +28,11 @@ export class MovieDetailComponent implements OnInit {
     })
 
     this.getSingleMoviesDetails(this.id);
+    this.getSingleMovieFromDatabase(this.id);
+  }
+
+  detail(): void {
+    window.location.reload();
   }
 
   getSingleMoviesDetails(id: number){
@@ -42,30 +41,36 @@ export class MovieDetailComponent implements OnInit {
     })
   }
 
-  addToWatchlist(id: number) {
-    console.log(id);
-    return this.httpClient.post<any[]>(this.localhostURL + "/movies",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
-      this.movies.push(this.movie);
-    });
-  }
+  getSingleMovieFromDatabase(id: number){
+    this.movieService.getSpecificMovieFromDatabase(id).subscribe((r:any) => {
+      console.log(this.watchedornot)
+      console.log(r.comment)
+      this.inDatabase = true;
+      this.comment = r.comment;
+        return this.watchedornot = r.watchedorNot;
 
-  removeFromWatchlist(id: number) {
-    return this.httpClient.delete<any[]>(this.localhostURL + `/movies/${id}`).subscribe(data => {
-      console.log(data);
+      },
+    (error) => {
+      console.log('error caught in component');
+      return this.watchedornot= false;
     })
   }
 
-  // ngOnInit(): void {
-  //   const movieId = this.route.snapshot.paramMap.get('id');
-  //   if (movieId != null ) {
-  //     this.movieService.getMovieById(+movieId).subscribe((r:any) => {
-  //       // console.log(r.title);
-  //       // this.movie = r.results;
-  //       this.movies.push(r)
-  //         console.log(this.movies);
-  //         console.log(r.title);
-  //     })
+  addToWatchlist(id: number) {
+    this.movieService.addToWatchlist(id).subscribe(r => {
+      this.movies.push(this.movie);
+    })
+  }
 
-  //   }
-  // }
+  removeFromWatchlist(id: number){
+    this.movieService.removeFromWatchlist(id).subscribe(r => {
+      console.log(r);
+    })
+  }
+
+  updateWatchedOrNot(id: number, change: boolean) {
+    this.movieService.updateMovieInDatabase(id,change).subscribe((r:any) => {
+      console.log(r);
+    })
+  }
 }

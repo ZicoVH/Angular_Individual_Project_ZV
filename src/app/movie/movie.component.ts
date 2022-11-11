@@ -35,7 +35,7 @@ export class MovieComponent implements OnInit {
 
   getMovieById(id: number) {
     this.movieService.getMovieById(id).subscribe((r:any) => {
-      console.log(r.title);
+      // console.log(r.title);
       this.movieById = r.results;
     })
   }

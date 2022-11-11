@@ -4,10 +4,10 @@
 />
 
 <div class="text-white">
-  <div class="backdrop flex ful">
+  <div class="backdrop lg:flex ful">
     <div class="pl-5">
       <div class="name pt-8">{{ movie?.title }}</div>
-      <div class="meta">
+      <div>
         <div class="info space-x-3">
           <span class="rat text-gray-500">
             <i class="material-icons">star</i
@@ -27,17 +27,16 @@
           <p class="pt-5 pb-5">{{ movie?.overview }}</p>
         </div>
       </div>
-
-      <button
+      <button *ngIf="!inDatabase"
         type="button"
-        (click)="addToWatchlist(movie.id)"
+        (click)="addToWatchlist(movie.id);detail()"
         class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
       >
         Add to Watchlist
       </button>
-      <button
+      <button *ngIf="inDatabase"
         type="button"
-        (click)="removeFromWatchlist(movie.id)"
+        (click)="removeFromWatchlist(movie.id);detail()"
         class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
       >
         Remove from Watchlist
@@ -46,90 +45,61 @@
       <!-- Genres -->
       <div class="pt-2">
         <div class="flex">
-          <p class="text-gray-500">Genre:  &nbsp;</p>
+          <p class="text-gray-500">Genre: &nbsp;</p>
           <p class="comma_ text-white" *ngFor="let genre of movie?.genres">
-            <span> {{genre.name}}&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <!-- <a routerLink="/genres/{{ genre.id }}/{{ genre.name }}">{{
-              genre?.name
-            }}</a> -->
+            <span> {{ genre.name }}&nbsp;&nbsp;&nbsp;&nbsp; </span>
           </p>
         </div>
       </div>
+      <div class="pt-2">
+        <div class="flex">
+          <p class="text-gray-500">Language: &nbsp;</p>
+          <p
+            class="comma_ text-white"
+            *ngFor="let language of movie?.spoken_languages"
+          >
+            <span> {{ language.name }}&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          </p>
+        </div>
+      </div>
+      <div class="pt-2">
+        <div class="flex">
+          <p class="text-gray-500">Status: &nbsp;</p>
+          <p class="comma_ text-white" *ngIf="movie?.status">
+            <span> {{ movie.status }}&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="inDatabase">
+        <div *ngIf="!watchedornot" class="pt-3">
+          <!-- <p>You haven't seen this movie yet.</p> -->
+          <button
+            type="button"
+            (click)="updateWatchedOrNot(movie.id,true);detail()"
+            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Add to Watched
+          </button>
+        </div>
+        <div *ngIf="watchedornot" class="pt-3">
+          <!-- <p>You've seen this movie already!</p> -->
+          <button
+          type="button"
+          (click)="updateWatchedOrNot(movie.id,false);detail()"
+          class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        >
+          Remove from Watched
+        </button>
+        </div>
+        <div>{{comment}}</div>
+
+      </div>
+
     </div>
     <img
       class="image ml-10"
-      style="width: 70%; "
+      style="max-width: 70%; height: auto"
       src="https://image.tmdb.org/t/p/original/{{ movie?.backdrop_path }}"
     />
-  </div>
-</div>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="listing-space info__movies">
-        <div class="left">
-          <!-- <div class="poster">
-                              <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ movie?.poster_path }}">
-                          </div> -->
-        </div>
-        <div class="right">
-          <div class="stats">
-            <ul class="nolist">
-              <li *ngIf="movie?.status">
-                <div class="label">Status</div>
-                <div class="value">
-                  {{ movie?.status }}
-                </div>
-              </li>
-              <li *ngIf="movie?.spoken_languages?.length">
-                <div class="label">Language</div>
-                <div
-                  class="comma_"
-                  *ngFor="let language of movie?.spoken_languages"
-                >
-                  <a>{{ language?.name }}</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="listing-space">
-        <div class="listing__head">
-          <h2 class="listing__title">Cast</h2>
-        </div>
-        <ng-template let-cast pTemplate="item">
-          <div class="listing-item-style" [routerLink]="['/person/', cast.id]">
-            <div class="overlay">
-              <div class="hover">Details</div>
-            </div>
-            <img
-              *ngIf="cast.profile_path"
-              src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{
-                cast?.profile_path
-              }}"
-            />
-            <img
-              *ngIf="!cast?.profile_path"
-              src="assets/images/default-movie.png"
-            />
-            <h6>{{ cast?.name }}</h6>
-          </div>
-        </ng-template>
-      </div>
-
-      <div class="listing-space videos__status">
-        <div class="items"></div>
-      </div>
-
-      <div class="listing-space backdrop_">
-        <div class="head">
-          <h2 class="title">Backdrops</h2>
-        </div>
-        <div class="items"></div>
-      </div>
-    </div>
   </div>
 </div>

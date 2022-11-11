@@ -10,6 +10,8 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { MovieComponent } from './movie/movie.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { ShortenContentPipe } from './shorten-content.pipe';
+import { FormsModule } from '@angular/forms';
+import { CommentFormComponent } from './comment-form/comment-form.component';
 
 
 @NgModule({
@@ -20,13 +22,15 @@ import { ShortenContentPipe } from './shorten-content.pipe';
     NavigationBarComponent,
     MovieComponent,
     MovieDetailComponent,
-    ShortenContentPipe
+    ShortenContentPipe,
+    CommentFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     PipeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

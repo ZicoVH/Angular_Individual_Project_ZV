@@ -1,7 +1,14 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-
-<div class="max-w-sm rounded overflow-hidden shadow-lg m-5 ">
+<div *ngIf="!movie">
+  <h2>HAHAHAH</h2>
+    <P class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, maiores! Ipsam cumque, nisi facere ea fugiat nihil corporis quod, alias aspernatur eius nobis explicabo incidunt consequuntur similique debitis vero doloremque?
+    Sequi dolores temporibus porro ducimus culpa iure aliquam deserunt eum assumenda reiciendis, dicta hic nostrum, tempora molestiae aspernatur praesentium qui esse. Delectus, vitae numquam? Praesentium laudantium omnis quis earum maiores.
+    Esse nulla nisi illo deleniti, sint quia atque dolorem modi culpa, quo reprehenderit totam sit delectus ratione repudiandae fuga nam vitae mollitia et non eius. Saepe similique neque deleniti nemo.
+    Eum, deserunt dignissimos! Repudiandae quod beatae ducimus ex suscipit veniam placeat commodi hic quos distinctio odio repellat, id, cupiditate architecto delectus aspernatur perferendis, autem impedit provident facilis minima rerum deserunt.
+    Asperiores placeat molestias ipsa! Deserunt tenetur error odio ullam consequuntur libero ut eius ea. Unde aperiam explicabo quidem asperiores, quam voluptatibus amet aut quia ipsam similique odio accusantium tempora atque.</P>
+</div>
+<div *ngIf="movie" class="max-w-sm rounded overflow-hidden shadow-lg m-5 ">
   <div class="row bg-gray-500">
     <div class="relative" >
       <p class="inline absolute bg-gray-900 pr-3 pl-2 pb-1 text-white  translate-x-2 translate-y-2 rounded-2xl"><span class="material-icons translate-y-1">star</span>{{movie.vote_average}} / 10</p>
