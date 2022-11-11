@@ -21,7 +21,7 @@ export class MovieService {
 
 
 
-  getMovieById(id: number){
+  getMovieById(id: number): Observable<Movie[]>{
     return this.httpClient.get<any[]>(`https://api.themoviedb.org/3/movie/${id}?api_key=005e372cbd4dab113edccadcc0ae5dff`)
   }
 

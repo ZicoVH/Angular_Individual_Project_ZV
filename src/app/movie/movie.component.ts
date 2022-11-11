@@ -19,12 +19,18 @@ export class MovieComponent implements OnInit {
     subscription!: Subscription;
 
   @Input() movie!: Movie;
+  @Input() isDetail: boolean = false;
+
   movieById: any;
   constructor(private router: Router, private movieService: MovieService,private httpClient: HttpClient) { }
 
   localhostURL ='http://localhost:8080/api';
 
   ngOnInit(): void {
+  }
+
+  detail(id: number) {
+    this.router.navigate(['/movie',id])
   }
 
   getMovieById(id: number) {
