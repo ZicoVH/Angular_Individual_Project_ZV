@@ -26,7 +26,14 @@
           }}</span>
           <span class="text-gray-500">|</span>
           <span class="text-gray-500"> {{ movie?.runtime | time }}</span>
+          <span *ngIf="!inDatabase" class="material-symbols-outlined hover:cursor-pointer pl-20" style="font-size: 40px;"  (click)="addToWatchlist(movie.id);detail()">
+            add_circle
+            </span>
+            <span *ngIf="inDatabase" class="material-symbols-outlined hover:cursor-pointer pl-20" style="font-size: 40px;"  (click)="removeFromWatchlist(movie.id);detail()">
+              do_not_disturb_on
+              </span>
           <p class="pt-5 pb-5">{{ movie?.overview }}</p>
+
         </div>
       </div>
       <!-- <button *ngIf="!inDatabase"
@@ -36,9 +43,9 @@
       >
       ok
       </button> -->
-      <span *ngIf="!inDatabase" class="material-symbols-outlined hover:cursor-pointer"  (click)="addToWatchlist(movie.id);detail()">
+      <!-- <span *ngIf="!inDatabase" class="material-symbols-outlined hover:cursor-pointer" style="font-size: 40px;"  (click)="addToWatchlist(movie.id);detail()">
         add_circle
-        </span>
+        </span> -->
       <!-- <button *ngIf="inDatabase"
         type="button"
         (click)="removeFromWatchlist(movie.id);detail()"
@@ -46,10 +53,10 @@
       >
         Remove from Watchlist
       </button> -->
-      <span *ngIf="inDatabase" class="material-symbols-outlined hover:cursor-pointer" (click)="removeFromWatchlist(movie.id);detail()">
+      <!-- <span *ngIf="inDatabase" class="material-symbols-outlined hover:cursor-pointer" (click)="removeFromWatchlist(movie.id);detail()">
         do_not_disturb_on
-        </span>
-      <hr />
+        </span> -->
+      <hr class="border-gray-700" />
       <!-- Genres -->
       <div class="pt-2">
         <div class="flex">
@@ -78,6 +85,7 @@
           </p>
         </div>
       </div>
+      <!-- <hr class="mt-4 mb-2" *ngIf="inDatabase"/> -->
       <div *ngIf="inDatabase">
         <div *ngIf="!watchedornot" class="pt-3">
           <!-- <p>You haven't seen this movie yet.</p> -->
@@ -99,11 +107,21 @@
           Remove from Watched
         </button>
         </div>
-        <div>{{comment}}</div>
+
 
       </div>
-      <div>
-        <form class="w-full max-w-sm" [formGroup]="updateMovieDatabase" (ngSubmit)="SaveData()">
+      <hr class="mt-4 border-gray-700" *ngIf="inDatabase">
+      <div class="mt-8" *ngIf="inDatabase">
+        <h3 class="pb-3">Personal Opinion:</h3>
+        <div class="flex items-center pb-3" >
+          <svg *ngFor="let rating of ratingNumbers" aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+          <svg *ngFor="let rating of emptyNumbers" aria-hidden="true" class="w-5 h-5 text-gray-300 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+          <p *ngIf="rating != 0" class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{{rating}} out of 5</p>
+      </div>
+        <p *ngIf="rating == 0" class="mb-2 font-light text-gray-500 dark:text-gray-400">You haven't given a rating yet.</p>
+        <p class="mb-2 font-light text-gray-500 dark:text-gray-400">{{comment}}</p></div>
+      <div *ngIf="inDatabase">
+        <form class="w-full max-w-sm pt-20 pb-12" [formGroup]="updateMovieDatabase" (ngSubmit)="SaveData();detail()">
           <div class="flex items-center border-b border-teal-500 py-2">
             <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Enter a comment..." aria-label="Full name" formControlName="comment">
             <label for="rating" class="mr-2">Rating</label>
@@ -113,11 +131,6 @@
               <option>3</option>
               <option>4</option>
               <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
             </select>
 
           </div>
@@ -126,6 +139,7 @@
           </button>
         </form>
       </div>
+
 
     </div>
     <img
