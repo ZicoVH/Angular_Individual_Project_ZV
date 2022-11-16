@@ -16,7 +16,10 @@ export class MovieDetailComponent implements OnInit {
   movie: any
   watchedornot: any;
   comment: string = '';
+  rating: number = 0;
   inDatabase: boolean = false;
+  ratingNumbers: any;
+  emptyNumbers: any
 
 
 
@@ -53,6 +56,9 @@ export class MovieDetailComponent implements OnInit {
       console.log(r.comment)
       this.inDatabase = true;
       this.comment = r.comment;
+      this.rating = r.rating;
+      this.ratingNumbers = Array(this.rating).fill(0).map((x,i)=>i);
+      this.emptyNumbers = Array(5 - this.rating).fill(0).map((x,i)=>i);
         return this.watchedornot = r.watchedorNot;
 
       },

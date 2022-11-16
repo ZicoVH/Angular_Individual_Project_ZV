@@ -65,7 +65,7 @@ export class MovieService {
     return this.httpClient.post<any[]>(this.localhostURL + '/movies', {
       movieId: id,
       watchedorNot: false,
-      comment: 'no comments for this movie',
+      comment: '',
       Rating: 0,
     });
   }
