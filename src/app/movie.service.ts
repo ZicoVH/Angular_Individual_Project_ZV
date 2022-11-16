@@ -4,6 +4,7 @@ import { Movie } from './movie';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, timer } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { MovieJava } from './movie-java';
 
 @Injectable({
   providedIn: 'root',
@@ -44,11 +45,20 @@ export class MovieService {
     return this.httpClient.get<any[]>(this.localhostURL + `/movie/${id}`);
   }
 
-  updateMovieInDatabase(id: number, change: boolean) {
+  updateWatchedInDatabase(id: number, change: boolean) {
     return this.httpClient.patch<any[]>(this.localhostURL + `/movies/${id}`, {
       watchedorNot: change,
     });
   }
+
+  updateMovieInDatabase(id: number, change?: boolean, rating =  0, comment = "no comment") {
+    return this.httpClient.patch<any[]>(this.localhostURL + `/movies/${id}`, {
+      watchedorNot: change,
+      rating: rating,
+      comment: comment
+    });
+  }
+
 
   addToWatchlist(id: number) {
     console.log(id);
