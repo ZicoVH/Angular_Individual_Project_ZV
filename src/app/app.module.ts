@@ -12,6 +12,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { ShortenContentPipe } from './shorten-content.pipe';
 import { FormsModule } from '@angular/forms';
 import { CommentFormComponent } from './comment-form/comment-form.component';
+import { ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
     HttpClientModule,
     PipeModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

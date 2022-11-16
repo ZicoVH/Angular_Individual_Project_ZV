@@ -3,6 +3,7 @@ import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import {FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-movie-detail',
@@ -17,10 +18,15 @@ export class MovieDetailComponent implements OnInit {
   comment: string = '';
   inDatabase: boolean = false;
 
+
+
   constructor(private router: Router,private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
 
   localhostURL ='http://localhost:8080/api';
-
+  updateMovieDatabase = new FormGroup({
+    rating: new FormControl(),
+    comment: new FormControl()}
+  );
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -51,7 +57,7 @@ export class MovieDetailComponent implements OnInit {
 
       },
     (error) => {
-      console.log('error caught in component');
+      console.log('movie is not in the database yet');
       return this.watchedornot= false;
     })
   }
@@ -64,13 +70,19 @@ export class MovieDetailComponent implements OnInit {
 
   removeFromWatchlist(id: number){
     this.movieService.removeFromWatchlist(id).subscribe(r => {
-      console.log(r);
+      // console.log(r);
     })
   }
 
   updateWatchedOrNot(id: number, change: boolean) {
-    this.movieService.updateMovieInDatabase(id,change).subscribe((r:any) => {
-      console.log(r);
+    this.movieService.updateWatchedInDatabase(id,change).subscribe((r:any) => {
+      // console.log(r);
     })
+  }
+
+  SaveData(){
+    this.movieService.updateMovieInDatabase(this.id,this.watchedornot, this.updateMovieDatabase.value.rating, this.updateMovieDatabase.value.comment).subscribe((r:any) => {})
+    console.log(this.updateMovieDatabase.value.comment);
+    console.log(this.id);
   }
 }
