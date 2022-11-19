@@ -13,6 +13,7 @@ import { ShortenContentPipe } from './shorten-content.pipe';
 import { FormsModule } from '@angular/forms';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { ReactiveFormsModule} from '@angular/forms';
+import { WatchedMoviesComponent } from './watched-movies/watched-movies.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ReactiveFormsModule} from '@angular/forms';
     MovieComponent,
     MovieDetailComponent,
     ShortenContentPipe,
-    CommentFormComponent
+    CommentFormComponent,
+    WatchedMoviesComponent
   ],
   imports: [
     BrowserModule,
