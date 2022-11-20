@@ -41,6 +41,10 @@ export class MovieService {
     return this.httpClient.get<any[]>(this.localhostURL + '/movies');
   }
 
+  getWatchedList(): Observable<Movie[]> {
+    return this.httpClient.get<any[]>(this.localhostURL + '/watchedmovies');
+  }
+
   getSpecificMovieFromDatabase(id: number): Observable<Movie[]> {
     return this.httpClient.get<any[]>(this.localhostURL + `/movie/${id}`);
   }
