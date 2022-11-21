@@ -18,8 +18,10 @@ export class MovieDetailComponent implements OnInit {
   comment: string = '';
   rating: number = 0;
   inDatabase: boolean = false;
+  opinion: boolean = false;
+  // inWatched: boolean = false;
   ratingNumbers: any;
-  emptyNumbers: any
+  emptyNumbers: any;
 
 
 
@@ -40,9 +42,22 @@ export class MovieDetailComponent implements OnInit {
     this.getSingleMovieFromDatabase(this.id);
   }
 
-  detail(): void {
-    window.location.reload();
+  refreshAddWatchlist(database: boolean): void {
+    console.log("ok");
+    this.inDatabase = !database;
+    // window.location.reload();
   }
+
+  refreshAddWatched(watched: boolean): void {
+    this.watchedornot = !watched;
+  }
+
+  refreshRating(submitted: boolean) : void {
+    this.ratingNumbers = Array(+this.rating).fill(0).map((x,i)=>i);
+    this.emptyNumbers = Array(+(5 - this.rating)).fill(0).map((x,i)=>i);
+    this.opinion = !submitted;
+    }
+
 
   getSingleMoviesDetails(id: number){
     this.movieService.getMovieById(id).subscribe((r:any) => {
@@ -86,9 +101,18 @@ export class MovieDetailComponent implements OnInit {
     })
   }
 
-  SaveData(){
-    this.movieService.updateMovieInDatabase(this.id,this.watchedornot, this.updateMovieDatabase.value.rating, this.updateMovieDatabase.value.comment).subscribe((r:any) => {})
+  SaveData(submitted: boolean){
+    this.movieService.updateMovieInDatabase(this.id,this.watchedornot, this.updateMovieDatabase.value.rating, this.updateMovieDatabase.value.comment).subscribe((r:any) => {
+    this.rating = this.updateMovieDatabase.value.rating;
+    this.comment = this.updateMovieDatabase.value.comment;
+
+    this.refreshRating(submitted);
+
+    })
     console.log(this.updateMovieDatabase.value.comment);
     console.log(this.id);
+    // console.log(this.updateMovieDatabase.value.rating);
+
+    console.log(this.rating);
   }
 }

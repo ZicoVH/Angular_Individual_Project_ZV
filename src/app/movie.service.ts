@@ -63,7 +63,6 @@ export class MovieService {
     });
   }
 
-
   addToWatchlist(id: number) {
     console.log(id);
     return this.httpClient.post<any[]>(this.localhostURL + '/movies', {
