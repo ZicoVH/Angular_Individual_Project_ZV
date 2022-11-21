@@ -31,15 +31,18 @@ export class WatchlistComponent implements OnInit {
       for (var i=0; i < r.length; i++) {
         let movieId = r[i].movieId;
         console.log(movieId);
-        this.movieService.getMovieById(movieId).subscribe((r:any) => {
-          // this.movies += r.movie_results;
-          this.movies.push(r)
-          console.log(this.movies);
-          console.log(r.title);
+        if (!r[i].watchedorNot){
+          this.movieService.getMovieById(movieId).subscribe((r:any) => {
+            // this.movies += r.movie_results;
+            this.movies.push(r)
+            console.log(this.movies);
+            console.log(r.title);
 
 
-          // console.log(r.title);
-        })
+            // console.log(r.title);
+          })
+        }
+
 
 
       }

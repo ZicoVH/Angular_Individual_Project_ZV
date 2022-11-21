@@ -115,4 +115,6 @@ export class MovieDetailComponent implements OnInit {
 
     console.log(this.rating);
   }
+
+
 }
