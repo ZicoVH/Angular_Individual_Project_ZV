@@ -20,7 +20,6 @@ export class WatchedMoviesComponent implements OnInit {
   constructor(private router: Router,private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
 
   searchWatched = new FormGroup({
-    type: new FormControl(),
     comment: new FormControl()
   });
 
@@ -29,36 +28,67 @@ export class WatchedMoviesComponent implements OnInit {
 
   }
 
+  orderByRating() {
+    this.searchMovies.sort(function (a: { rating: number; },b: { rating: number; }) { return a.rating - b.rating})
+  }
+
 
 
   SearchWatched(submitted: boolean) {
-    this.searchMovies = []
-    if (this.searchWatched.value.type == "Comment" || !this.searchWatched.value.type ){
-      this.movieService.searchSpecificCommentDatabase(this.searchWatched.value.comment).subscribe((r:any) => {
-        for (var i=0; i < r.length; i++) {
-
-          let movieId = r[i].movieId;
-          this.movieService.getMovieById(movieId).subscribe((r:any)=> {
-            this.searchMovies.push(r);
-            console.log(r)
-          })
-          this.showSearchResults = !submitted;
+    this.searchMovies = [];
+    let search = this.searchWatched.value.comment.toLowerCase();
+    if (search == ' '){
+      search = "";
+    }
+    else {
+      for (var i=0;i < this.movies.length; i++){
+        if (this.movies[i].title.toLowerCase().includes(search)) {
+          this.searchMovies.push(this.movies[i]);
         }
+      }
+      this.movieService.getWatchedList().subscribe((r:any)=> {
+        for (var i=0; i < r.length; i++) {
+          if (r[i].comment.toLowerCase().includes(search) /*|| r[i].rating == search */ ){
+            let movieId = r[i].movieId;
+          this.movieService.getMovieById(movieId).subscribe((r:any) => {
+            this.searchMovies.push(r)
+            console.log(this.movies);
+            console.log(r.title);
+          })
+          }
+        }
+        this.showSearchResults = !submitted
       })
     }
-    if (this.searchWatched.value.type == "Rating" ){
-      this.movieService.searchSpecificRatingDatabase(this.searchWatched.value.comment).subscribe((r:any) => {
-        for (var i=0; i < r.length; i++) {
 
-          let movieId = r[i].movieId;
-          this.movieService.getMovieById(movieId).subscribe((r:any)=> {
-            this.searchMovies.push(r);
-            console.log(r)
-          })
-          this.showSearchResults = !submitted;
-        }
-      })
-    }
+
+    // this.searchMovies = []
+    // if (this.searchWatched.value.type == "Comment" || !this.searchWatched.value.type ){
+    //   this.movieService.searchSpecificCommentDatabase(this.searchWatched.value.comment).subscribe((r:any) => {
+    //     for (var i=0; i < r.length; i++) {
+
+    //       let movieId = r[i].movieId;
+    //       this.movieService.getMovieById(movieId).subscribe((r:any)=> {
+    //         this.searchMovies.push(r);
+    //         console.log(r)
+    //       })
+    //       this.showSearchResults = !submitted;
+    //     }
+    //   })
+    // }
+    // if (this.searchWatched.value.type == "Rating" ){
+    //   this.movieService.searchSpecificRatingDatabase(this.searchWatched.value.comment).subscribe((r:any) => {
+    //     for (var i=0; i < r.length; i++) {
+
+    //       let movieId = r[i].movieId;
+    //       this.movieService.getMovieById(movieId).subscribe((r:any)=> {
+    //         this.searchMovies.push(r);
+    //         console.log(r)
+    //       })
+    //       this.showSearchResults = !submitted;
+    //     }
+    //   })
+    // }
 
   }
 

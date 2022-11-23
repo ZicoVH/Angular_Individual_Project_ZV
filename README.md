@@ -1,3 +1,9 @@
+# Hoe de databank werkend krijgen
+De Databank zit in een aparte github. Deze is op public gezet: [Github link naar Java Database](https://github.com/ZicoVH/Angular_Individual_Project_ZV_Java)
+- Java backend runt op poort 8080
+- Angular frontend runt op poort 5878
+
+
 Dit is het Angular individueel project. Deadline hiervoor is **25 november**
 
 # Movie Database #

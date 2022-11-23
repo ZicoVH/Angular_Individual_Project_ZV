@@ -30,7 +30,12 @@ export class MovieService {
     console.log(filter);
     if (filter == ' ') {
       return this.getMovies();
-    } else {
+    }
+    if (filter.startsWith('*')){
+      let newfilter = filter.substring(1)
+      return this.httpClient.get<Movie[]>(`https://api.themoviedb.org/3/discover/movie?api_key=005e372cbd4dab113edccadcc0ae5dff&primary_release_year=${newfilter}`)
+    }
+    else {
       return this.httpClient.get<Movie[]>(
         `https://api.themoviedb.org/3/search/movie?api_key=005e372cbd4dab113edccadcc0ae5dff&query=${filter}`
       );
