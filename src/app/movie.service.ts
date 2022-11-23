@@ -37,10 +37,19 @@ export class MovieService {
     }
   }
 
-  searchSpecificRatingDatabase() {}
+  searchSpecificRatingDatabase(rating: number): Observable<Movie[]> {
+    return this.httpClient.get<any[]>(this.localhostURL+ `/movies/specificRating/${rating}`)
+  }
 
   searchSpecificCommentDatabase(filter: string): Observable<Movie[]> {
-    return this.httpClient.get<any[]>(this.localhostURL + `/movies/specificComment/${filter}`)
+    if (filter == ' ') {
+      return this.getWatchedList()
+
+    }
+    else {
+      return this.httpClient.get<any[]>(this.localhostURL + `/movies/specificComment/${filter}`)
+
+    }
 
   }
 
