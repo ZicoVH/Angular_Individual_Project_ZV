@@ -15,6 +15,8 @@ export class WatchedMoviesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllMoviesFromWatched();
+
+
   }
 
 

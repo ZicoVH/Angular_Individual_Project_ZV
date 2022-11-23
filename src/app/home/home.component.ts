@@ -11,11 +11,12 @@ import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable,
 export class HomeComponent implements OnInit {
   // movies: any;
   movies!: Movie[];
+  genres!: any;
   subscription! : Subscription;
   searchBox!: HTMLInputElement;
   typeAhead!: Observable<Movie[]>;
   searchMovies: any = [];
-  showSearchResults: boolean = true;
+  showSearchResults: boolean = false;
   // movieById: any;
   // querymovies!: any;
 
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.getAllMovies();
+    // this.getAllGenres();
 
     this.searchBox = document.getElementById('searchMovie') as HTMLInputElement;
 
@@ -48,7 +50,7 @@ export class HomeComponent implements OnInit {
     this.subscription = this.typeAhead.subscribe((r:any) => {
         console.log(r)
         this.searchMovies = r.results;
-        this.showSearchResults= false;
+        this.showSearchResults= true;
     })
   }
 
@@ -64,6 +66,13 @@ export class HomeComponent implements OnInit {
       // console.log(this.movies)
     });
   }
+
+  // getAllGenres() {
+  //   this.movieService.searchSpecificCommentDatabase("werkt").subscribe((r:any) => {
+  //     this.genres = r.genres;
+  //     console.log(r)
+  //   })
+  // }
 
 
 

@@ -37,6 +37,18 @@ export class MovieService {
     }
   }
 
+  searchSpecificRatingDatabase() {}
+
+  searchSpecificCommentDatabase(filter: string): Observable<Movie[]> {
+    return this.httpClient.get<any[]>(this.localhostURL + `/movies/specificComment/${filter}`)
+
+  }
+
+  searchSpecificTitleDatabase() {}
+  // getGenres() {
+  //   return this.httpClient.get<any[]>('https://api.themoviedb.org/3/genre/movie/list?api_key=005e372cbd4dab113edccadcc0ae5dff')
+  // }
+
   getWatchlist(): Observable<Movie[]> {
     return this.httpClient.get<any[]>(this.localhostURL + '/movies');
   }
