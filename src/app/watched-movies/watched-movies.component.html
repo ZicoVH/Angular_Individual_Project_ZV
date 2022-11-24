@@ -15,11 +15,15 @@
   </button>
 </form>
 
+<!-- <form (ngSubmit)="getAllMoviesFromWatched()">
+  <button class="p-2.5 ml-2 text-sm font-medium text-white  rounded-lg border border-blue-700  focus:ring-4 focus:outline-none  bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" (click)="refreshRating(order)">hello</button>
 
+</form> -->
 
 <div *ngIf="showSearchResults" class="row flex-auto text-center">
   <app-movie class="col-sm-12 col-md-12, col-lg-6, col-xl-4  d-flex align-items-stretch " *ngFor="let movie of searchMovies" [movie]="movie"></app-movie>
   </div>
+
 
 <div *ngIf="!showSearchResults" class="row flex-auto text-center">
 <app-movie class="col-sm-12 col-md-12, col-lg-6, col-xl-4  d-flex align-items-stretch " *ngFor="let movie of movies" [movie]="movie"></app-movie>
