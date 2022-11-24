@@ -48,7 +48,7 @@ export class WatchedMoviesComponent implements OnInit {
       }
       this.movieService.getWatchedList().subscribe((r:any)=> {
         for (var i=0; i < r.length; i++) {
-          if (r[i].comment.toLowerCase().includes(search) /*|| r[i].rating == search */ ){
+          if (r[i].comment.toLowerCase().includes(search) || r[i].rating == search ){
             let movieId = r[i].movieId;
           this.movieService.getMovieById(movieId).subscribe((r:any) => {
             this.searchMovies.push(r)
@@ -60,36 +60,6 @@ export class WatchedMoviesComponent implements OnInit {
         this.showSearchResults = !submitted
       })
     }
-
-
-    // this.searchMovies = []
-    // if (this.searchWatched.value.type == "Comment" || !this.searchWatched.value.type ){
-    //   this.movieService.searchSpecificCommentDatabase(this.searchWatched.value.comment).subscribe((r:any) => {
-    //     for (var i=0; i < r.length; i++) {
-
-    //       let movieId = r[i].movieId;
-    //       this.movieService.getMovieById(movieId).subscribe((r:any)=> {
-    //         this.searchMovies.push(r);
-    //         console.log(r)
-    //       })
-    //       this.showSearchResults = !submitted;
-    //     }
-    //   })
-    // }
-    // if (this.searchWatched.value.type == "Rating" ){
-    //   this.movieService.searchSpecificRatingDatabase(this.searchWatched.value.comment).subscribe((r:any) => {
-    //     for (var i=0; i < r.length; i++) {
-
-    //       let movieId = r[i].movieId;
-    //       this.movieService.getMovieById(movieId).subscribe((r:any)=> {
-    //         this.searchMovies.push(r);
-    //         console.log(r)
-    //       })
-    //       this.showSearchResults = !submitted;
-    //     }
-    //   })
-    // }
-
   }
 
   getAllMoviesFromWatched() {
@@ -98,13 +68,9 @@ export class WatchedMoviesComponent implements OnInit {
         let movieId = r[i].movieId;
         console.log(movieId);
         this.movieService.getMovieById(movieId).subscribe((r:any) => {
-          // this.movies += r.movie_results;
           this.movies.push(r)
           console.log(this.movies);
           console.log(r.title);
-
-
-          // console.log(r.title);
         })
 
 

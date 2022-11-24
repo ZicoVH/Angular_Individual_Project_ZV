@@ -19,7 +19,6 @@ export class MovieDetailComponent implements OnInit {
   rating: number = 0;
   inDatabase: boolean = false;
   opinion: boolean = false;
-  // inWatched: boolean = false;
   ratingNumbers: any;
   emptyNumbers: any;
 
@@ -45,7 +44,6 @@ export class MovieDetailComponent implements OnInit {
   refreshAddWatchlist(database: boolean): void {
     console.log("ok");
     this.inDatabase = !database;
-    // window.location.reload();
   }
 
   refreshAddWatched(watched: boolean): void {
@@ -91,13 +89,13 @@ export class MovieDetailComponent implements OnInit {
 
   removeFromWatchlist(id: number){
     this.movieService.removeFromWatchlist(id).subscribe(r => {
-      // console.log(r);
+
     })
   }
 
   updateWatchedOrNot(id: number, change: boolean) {
     this.movieService.updateWatchedInDatabase(id,change).subscribe((r:any) => {
-      // console.log(r);
+
     })
   }
 
@@ -111,8 +109,6 @@ export class MovieDetailComponent implements OnInit {
     })
     console.log(this.updateMovieDatabase.value.comment);
     console.log(this.id);
-    // console.log(this.updateMovieDatabase.value.rating);
-
     console.log(this.rating);
   }
 

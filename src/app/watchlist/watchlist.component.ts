@@ -10,8 +10,6 @@ import { MovieService } from '../movie.service';
 })
 export class WatchlistComponent implements OnInit {
 
-  // @Input() movies!: Movie;
-  // movies!: any
   movies: any = [];
   @Input() movie!: Movie;
 
@@ -22,7 +20,6 @@ export class WatchlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllMoviesFromWatchlist();
-    // this.getWatchList();
   }
 
 
@@ -33,13 +30,9 @@ export class WatchlistComponent implements OnInit {
         console.log(movieId);
         if (!r[i].watchedorNot){
           this.movieService.getMovieById(movieId).subscribe((r:any) => {
-            // this.movies += r.movie_results;
             this.movies.push(r)
             console.log(this.movies);
             console.log(r.title);
-
-
-            // console.log(r.title);
           })
         }
 

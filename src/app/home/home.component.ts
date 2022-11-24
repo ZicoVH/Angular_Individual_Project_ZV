@@ -17,8 +17,7 @@ export class HomeComponent implements OnInit {
   typeAhead!: Observable<Movie[]>;
   searchMovies: any = [];
   showSearchResults: boolean = false;
-  // movieById: any;
-  // querymovies!: any;
+
 
   constructor(private movieService: MovieService) { }
 
@@ -63,26 +62,7 @@ export class HomeComponent implements OnInit {
   getAllMovies() {
     this.movieService.getMovies().subscribe((r:any) => {
       this.movies = r.results;
-      // console.log(this.movies)
+
     });
   }
-
-  // getAllGenres() {
-  //   this.movieService.searchSpecificCommentDatabase("werkt").subscribe((r:any) => {
-  //     this.genres = r.genres;
-  //     console.log(r)
-  //   })
-  // }
-
-
-
-  // addToWatchList(id:number) {
-  //   this.movieService.addToWatchlist(id).subscribe((r:any) => {
-  //     console.log(r);
-  //   })
-  // }
-
-
-
-
 }
