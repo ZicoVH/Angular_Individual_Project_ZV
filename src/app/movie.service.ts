@@ -46,7 +46,7 @@ export class MovieService {
     return this.httpClient.get<any[]>(this.localhostURL+ `/movies/specificRating/${rating}`)
   }
 
-  searchSpecificCommentDatabase(filter: string): Observable<Movie[]> {
+  searchSpecificCommentDatabase(filter: string): Observable<MovieJava[]> {
     if (filter == ' ') {
       return this.getWatchedList()
 
@@ -67,7 +67,7 @@ export class MovieService {
     return this.httpClient.get<any[]>(this.localhostURL + '/movies');
   }
 
-  getWatchedList(): Observable<Movie[]> {
+  getWatchedList(): Observable<MovieJava[]> {
     return this.httpClient.get<any[]>(this.localhostURL + '/watchedmovies');
   }
 

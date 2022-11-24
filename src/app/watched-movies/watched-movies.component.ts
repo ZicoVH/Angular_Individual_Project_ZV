@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, Observable, fromEvent, map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Movie } from '../movie';
+import { MovieJava } from '../movie-java';
 import { MovieService } from '../movie.service';
 
 @Component({
@@ -16,6 +17,9 @@ export class WatchedMoviesComponent implements OnInit {
   searchMovies: any = [];
   showSearchResults: boolean = false;
   opinion: boolean = false;
+  change: boolean = false;
+  order: boolean = true;
+
 
   constructor(private router: Router,private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
 
@@ -28,11 +32,10 @@ export class WatchedMoviesComponent implements OnInit {
 
   }
 
-  orderByRating() {
-    this.searchMovies.sort(function (a: { rating: number; },b: { rating: number; }) { return a.rating - b.rating})
+  refreshRating(changed: boolean): void {
+    console.log(this.order);
+    this.order = !changed;
   }
-
-
 
   SearchWatched(submitted: boolean) {
     this.searchMovies = [];
@@ -63,17 +66,29 @@ export class WatchedMoviesComponent implements OnInit {
   }
 
   getAllMoviesFromWatched() {
-    this.movieService.getWatchedList().subscribe((r:any)=> {
-      for (var i=0; i < r.length; i++) {
-        let movieId = r[i].movieId;
-        console.log(movieId);
-        this.movieService.getMovieById(movieId).subscribe((r:any) => {
-          this.movies.push(r)
-          console.log(this.movies);
-          console.log(r.title);
+    this.movies = []
+    this.movieService.getWatchedList().subscribe((t:MovieJava[])=> {
+      if (this.order){
+        t.sort((a,b) => a.rating - b.rating)
+        t.forEach((e) => {
+          this.movieService.getMovieById(e.movieId).subscribe((r:Movie[]) => {
+            this.movies.push(r);
+            console.log(r);
+          })
         })
+        console.log(t, "test");
+      }
+      else {
+        t.sort((a,b) => b.rating - a.rating)
+        t.forEach((e) => {
+          this.movieService.getMovieById(e.movieId).subscribe((r:Movie[]) => {
+            this.movies.push(r);
+            console.log(r);
 
+          })
 
+        })
+        console.log(t, "test2")
       }
     })
   }
