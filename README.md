@@ -6,11 +6,12 @@ Mijn gebruikte IDE had volgende instellingen:
 Als u de databank nog niet bestaat moet u in de file "application.properties" de update op lijn 5 aanpassen naar "create-drop", hierdoor gaat bij elke opstart hij de databank droppen en een nieuwe creëren. Zie afbeelding:
 ![alt text](img/application_properties.jpg)
 De username & password alsook url moet aangepast worden naargelang uw account.
+
 - Java backend runt op poort 8080
 - Angular frontend runt op poort 5878
 
 # Hoe de Angular Applicatie werkend krijgen
-1. Download en installeer NodeJs(https://nodejs.org/en/). Hiermee wordt automatisch ook npm client geïnstalleerd.
+1. Download en installeer [NodeJs](https://nodejs.org/en/). Hiermee wordt automatisch ook npm client geïnstalleerd.
 2. Dit kan u checken door in uw terminal "node -v" & "npm -v" te doen.
 3. Vervolgens moet u in uw terminal " npm install -g @angular/cli@14.2.0 " uitvoeren. Dit om de Angular CLI te installeren.
 4. Omdat de node_modules niet in de github repo staan kan het zijn dat u in uw terminal nog het commande "npm install" moet runnen.
