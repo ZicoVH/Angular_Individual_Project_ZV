@@ -5,6 +5,7 @@ Mijn gebruikte IDE had volgende instellingen:
 
 Als u de databank nog niet bestaat moet u in de file "application.properties" de update op lijn 5 aanpassen naar "create-drop", hierdoor gaat bij elke opstart hij de databank droppen en een nieuwe creëren. Zie afbeelding:
 ![alt text](img/application_properties.jpg)
+De username & password alsook url moet aangepast worden naargelang uw account.
 - Java backend runt op poort 8080
 - Angular frontend runt op poort 5878
 
