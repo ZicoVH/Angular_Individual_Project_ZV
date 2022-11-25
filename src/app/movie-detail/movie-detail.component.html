@@ -26,7 +26,7 @@
           }}</span>
           <span class="text-gray-500">|</span>
           <span class="text-gray-500"> {{ movie?.runtime | time }}</span>
-          <span *ngIf="!inDatabase" title="add movie to watchlist" class="material-symbols-outlined hover:cursor-pointer pl-5" style="font-size: 40px;"  (click)="addToWatchlist(movie.id);refreshAddWatchlist(inDatabase)">
+          <span *ngIf="!inDatabase" title="add movie to watchlist" class="material-symbols-outlined hover:cursor-pointer pl-5" style="font-size: 40px;"  (click)="addToWatchlist(movie.id,movie?.title,movie?.poster_path,movie?.vote_average);refreshAddWatchlist(inDatabase)">
             add_circle
             </span>
             <span *ngIf="inDatabase" title="remove movie from watchlist" class="material-symbols-outlined hover:cursor-pointer pl-5" style="font-size: 40px;"  (click)="removeFromWatchlist(movie.id);refreshAddWatchlist(inDatabase)">

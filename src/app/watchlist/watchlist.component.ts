@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { mergeMap } from 'rxjs';
 import { Movie } from '../movie';
+import { MovieJava } from '../movie-java';
 import { MovieService } from '../movie.service';
 
 @Component({
@@ -24,21 +25,25 @@ export class WatchlistComponent implements OnInit {
 
 
   getAllMoviesFromWatchlist() {
+    this.movies = []
     this.movieService.getWatchlist().subscribe((r:any)=> {
-      for (var i=0; i < r.length; i++) {
-        let movieId = r[i].movieId;
-        console.log(movieId);
-        if (!r[i].watchedorNot){
-          this.movieService.getMovieById(movieId).subscribe((r:any) => {
-            this.movies.push(r)
-            console.log(this.movies);
-            console.log(r.title);
-          })
+      r.forEach((e:MovieJava)=> {
+        if (!e.watchedorNot){
+          this.movies.push(e)
         }
+      })
+      // for (var i=0; i < r.length; i++) {
+      //   if (!r[i].watchedorNot){
+      //     this.movieService.getMovieById(r[i].id).subscribe((r:any) => {
+      //       this.movies.push(r)
+      //       console.log(this.movies);
+      //       console.log(r.title);
+      //     })
+      //   }
 
 
 
-      }
+      // }
     })
   }
 
