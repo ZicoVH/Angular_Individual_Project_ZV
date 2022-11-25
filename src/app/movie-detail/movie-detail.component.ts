@@ -81,8 +81,8 @@ export class MovieDetailComponent implements OnInit {
     })
   }
 
-  addToWatchlist(id: number) {
-    this.movieService.addToWatchlist(id).subscribe(r => {
+  addToWatchlist(id: number,title: string,poster_path: string, vote_average:number) {
+    this.movieService.addToWatchlist(id,title,poster_path,vote_average).subscribe(r => {
       this.movies.push(this.movie);
     })
   }
@@ -103,13 +103,9 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.updateMovieInDatabase(this.id,this.watchedornot, this.updateMovieDatabase.value.rating, this.updateMovieDatabase.value.comment).subscribe((r:any) => {
     this.rating = this.updateMovieDatabase.value.rating;
     this.comment = this.updateMovieDatabase.value.comment;
-
     this.refreshRating(submitted);
 
     })
-    console.log(this.updateMovieDatabase.value.comment);
-    console.log(this.id);
-    console.log(this.rating);
   }
 
 

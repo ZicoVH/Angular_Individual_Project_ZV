@@ -15,16 +15,20 @@ export class MovieService {
   localhostURL = 'http://localhost:8080/api';
 
   getMovies(): Observable<Movie[]> {
-    return this.httpClient.get<any[]>(
+    return this.httpClient.get<Movie[]>(
       'https://api.themoviedb.org/3/movie/popular?api_key=005e372cbd4dab113edccadcc0ae5dff&page=1'
     );
   }
 
   getMovieById(id: number): Observable<Movie[]> {
-    return this.httpClient.get<any[]>(
+    return this.httpClient.get<Movie[]>(
       `https://api.themoviedb.org/3/movie/${id}?api_key=005e372cbd4dab113edccadcc0ae5dff`
     );
   }
+
+  // getMovieByIdDatabase(id: number): Observable<MovieJava[]> {
+  //   return this.httpClient.get<any[]>(this.localhostURL+ `/movies/specificId/${id}`)
+  // }
 
   searchMovies(filter: string): Observable<Movie[]> {
     console.log(filter);
@@ -71,7 +75,7 @@ export class MovieService {
     return this.httpClient.get<any[]>(this.localhostURL + '/watchedmovies');
   }
 
-  getSpecificMovieFromDatabase(id: number): Observable<Movie[]> {
+  getSpecificMovieFromDatabase(id: number): Observable<MovieJava[]> {
     return this.httpClient.get<any[]>(this.localhostURL + `/movie/${id}`);
   }
 
@@ -89,13 +93,17 @@ export class MovieService {
     });
   }
 
-  addToWatchlist(id: number) {
-    console.log(id);
+  addToWatchlist(movieId: number,title: string, poster_path: string,vote_average:number) {
+    console.log(movieId);
+    // console.log(id);
     return this.httpClient.post<any[]>(this.localhostURL + '/movies', {
-      movieId: id,
+      id: movieId,
       watchedorNot: false,
       comment: '',
-      Rating: 0,
+      rating: 0,
+      title: title,
+      poster_path: poster_path,
+      vote_average: vote_average
     });
   }
 

@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable, Subscription, switchMap } from 'rxjs';
 import { Movie } from '../movie';
+import { MovieJava } from '../movie-java';
 import { MovieService } from '../movie.service';
 
 
@@ -13,12 +14,13 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit {
-    movies: Movie[] = [];
+    movies: any;
     searchBox!: HTMLInputElement;
     typeAhead!: Observable<Movie[]>;
     subscription!: Subscription;
 
   @Input() movie!: Movie;
+  @Input() javamovie!: MovieJava;
   @Input() isDetail: boolean = false;
 
   movieById: any;
@@ -39,12 +41,12 @@ export class MovieComponent implements OnInit {
     })
   }
 
-  addToWatchlist(id: number) {
-    console.log(id);
-    return this.httpClient.post<any[]>(this.localhostURL + "/movies",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
-      this.movies.push(this.movie);
-    });
-  }
+  // addToWatchlist(id: number) {
+  //   console.log(id);
+  //   return this.httpClient.post<any[]>(this.localhostURL + "/movies",{movieId: id,watchedorNot: true,comment:"no comments for this movie",Rating:7}).subscribe(data => {
+  //     this.movies.push(this.movie);
+  //   });
+  // }
 
   removeFromWatchlist(id: number) {
     return this.httpClient.delete<any[]>(this.localhostURL + `/movies/${id}`).subscribe(data => {

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-     Movie findByMovieId(int id);
+     Movie findById(int id);
 
      @Query("select b from Movie b where b.watchedorNot is true ")
      List<Movie> findAllWatched();

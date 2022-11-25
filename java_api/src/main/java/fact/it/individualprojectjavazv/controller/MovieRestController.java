@@ -32,7 +32,7 @@ public class MovieRestController {
 
     @GetMapping("/movie/{id}")
     public ResponseEntity<Movie> getMovie(@PathVariable int id){
-        Optional<Movie> movie1 = Optional.ofNullable(movieRepository.findByMovieId(id));
+        Optional<Movie> movie1 = Optional.ofNullable(movieRepository.findById(id));
         if (movie1.isPresent()){
             Movie movie = movie1.get();
             return new ResponseEntity<>(movie, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class MovieRestController {
 
     @PostMapping("/movies")
     public Movie createMovie(@RequestBody Movie movie){
-        Movie existingMovie = movieRepository.findByMovieId(movie.getMovieId());
+        Movie existingMovie = movieRepository.findById(movie.getId());
         if (existingMovie != null) {
             return null;
         }
@@ -53,7 +53,7 @@ public class MovieRestController {
 
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<Integer> deleteMovie(@PathVariable int id) {
-        Optional<Movie> movie1 = Optional.ofNullable(movieRepository.findByMovieId(id));
+        Optional<Movie> movie1 = Optional.ofNullable(movieRepository.findById(id));
         if (movie1.isPresent()){
             Movie movie = movie1.get();
             movieRepository.delete(movie);
@@ -64,7 +64,7 @@ public class MovieRestController {
 
     @PatchMapping("/movies/{id}")
     public ResponseEntity<Movie> changeMovie(@RequestBody Movie updateMovie, @PathVariable int id){
-        Optional<Movie> movie1 = Optional.ofNullable(movieRepository.findByMovieId(id));
+        Optional<Movie> movie1 = Optional.ofNullable(movieRepository.findById(id));
         if (movie1.isPresent()){
             Movie movie = movie1.get();
             movie.setWatchedorNot(updateMovie.isWatchedorNot());

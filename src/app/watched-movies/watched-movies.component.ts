@@ -13,12 +13,12 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./watched-movies.component.css']
 })
 export class WatchedMoviesComponent implements OnInit {
-  movies: any = [];
+  movies!: any;
   searchMovies: any = [];
   showSearchResults: boolean = false;
   opinion: boolean = false;
   change: boolean = false;
-  order: boolean = true;
+  order: boolean = false;
 
 
   constructor(private router: Router,private movieService: MovieService, private route: ActivatedRoute,private httpClient: HttpClient) { }
@@ -32,14 +32,15 @@ export class WatchedMoviesComponent implements OnInit {
 
   }
 
-  refreshRating(changed: boolean): void {
-    console.log(this.order);
-    this.order = !changed;
-  }
+  // refreshRating(changed: boolean): void {
+  //   console.log(this.order);
+  //   this.order = !changed;
+  // }
 
   SearchWatched(submitted: boolean) {
     this.searchMovies = [];
     let search = this.searchWatched.value.comment.toLowerCase();
+    console.log(search)
     if (search == ' '){
       search = "";
     }
@@ -52,8 +53,7 @@ export class WatchedMoviesComponent implements OnInit {
       this.movieService.getWatchedList().subscribe((r:any)=> {
         for (var i=0; i < r.length; i++) {
           if (r[i].comment.toLowerCase().includes(search) || r[i].rating == search ){
-            let movieId = r[i].movieId;
-          this.movieService.getMovieById(movieId).subscribe((r:any) => {
+          this.movieService.getSpecificMovieFromDatabase(r[i].id).subscribe((r:any) => {
             this.searchMovies.push(r)
             console.log(this.movies);
             console.log(r.title);
@@ -65,31 +65,54 @@ export class WatchedMoviesComponent implements OnInit {
     }
   }
 
+  refreshOrder(order: boolean): void {
+    console.log(order)
+    this.order = !order;
+    // this.getAllMoviesFromWatched();
+    if (this.order){
+      this.movies.sort((a:MovieJava,b:MovieJava) => b.rating - a.rating);
+    }
+    if (!this.order){
+      this.movies.sort((a:MovieJava,b:MovieJava) => a.rating - b.rating)
+    }
+  }
+
   getAllMoviesFromWatched() {
     this.movies = []
-    this.movieService.getWatchedList().subscribe((t:MovieJava[])=> {
-      if (this.order){
-        t.sort((a,b) => a.rating - b.rating)
-        t.forEach((e) => {
-          this.movieService.getMovieById(e.movieId).subscribe((r:Movie[]) => {
-            this.movies.push(r);
-            console.log(r);
-          })
-        })
-        console.log(t, "test");
-      }
-      else {
-        t.sort((a,b) => b.rating - a.rating)
-        t.forEach((e) => {
-          this.movieService.getMovieById(e.movieId).subscribe((r:Movie[]) => {
-            this.movies.push(r);
-            console.log(r);
+    this.movieService.getWatchedList().subscribe((r)=> {
+      r.forEach((e)=> {
+        this.movies.push(e)
+      })
 
-          })
 
-        })
-        console.log(t, "test2")
-      }
+
+      // console.log(t);
+      // t.forEach((e) => {
+      //   this.movies.push(e)
+      //   console.log(e)
+      // })
+      // if (this.order){
+      //   t.sort((a,b) => a.rating - b.rating)
+      //   t.forEach((e) => {
+      //     this.movieService.getMovieById(e.movieId).subscribe((r:Movie[]) => {
+      //       this.movies.push(r);
+      //       console.log(r);
+      //     })
+      //   })
+      //   console.log(t, "test");
+      // }
+      // else {
+      //   t.sort((a,b) => b.rating - a.rating)
+      //   t.forEach((e) => {
+      //     this.movieService.getMovieById(e.movieId).subscribe((r:Movie[]) => {
+      //       this.movies.push(r);
+      //       console.log(r);
+
+      //     })
+
+      //   })
+      //   console.log(t, "test2")
+      // }
     })
   }
 }
