@@ -18,10 +18,10 @@
 
 <div class="text-center pt-5">
   <button *ngIf="!order" (click)="refreshOrder(order)"  class="p-2.5 ml-2 text-sm font-medium text-white  rounded-lg border border-blue-700  focus:ring-4 focus:outline-none  bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-    <span>Order by ascending rate</span>    <!-- <span class="sr-only">Search</span> -->
+    <span>Order by descending rate</span>    <!-- <span class="sr-only">Search</span> -->
   </button>
   <button *ngIf="order" (click)="refreshOrder(order)"  class="p-2.5 ml-2 text-sm font-medium text-white  rounded-lg border border-blue-700  focus:ring-4 focus:outline-none  bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-    <span>Order by descending rate</span>    <!-- <span class="sr-only">Search</span> -->
+    <span>Order by ascending rate</span>    <!-- <span class="sr-only">Search</span> -->
   </button>
 </div>
 </div>
